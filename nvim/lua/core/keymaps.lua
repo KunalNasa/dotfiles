@@ -2,6 +2,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- TOM SOLUTION TO SKIP WORDS USING OPTION + arrows
+vim.keymap.set('i', '<M-b>', '<C-o>b', opts)
+vim.keymap.set('i', '<M-f>', '<C-o>w', opts)
+
 -- Disable the spacebar key's default behavior in Normal and Visual modes
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -79,3 +83,20 @@ vim.keymap.set('i', '<M-BS>', '<C-G>u<C-W>', { noremap = true })
 
 -- set toggle word wrap
 vim.keymap.set('n', '<A-z>', ':set wrap!<CR>', { noremap = true, silent = true })
+
+-- barbar keymaps
+vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', { silent = true })
+vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', { silent = true })
+vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', { silent = true })
+vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', { silent = true })
+vim.keymap.set('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', { silent = true })
+vim.keymap.set('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', { silent = true })
+vim.keymap.set('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', { silent = true })
+vim.keymap.set('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', { silent = true })
+vim.keymap.set('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', { silent = true })
+vim.keymap.set('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', { silent = true })
+vim.keymap.set('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', { silent = true })
+vim.keymap.set('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', { silent = true })
+vim.keymap.set('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', { silent = true })
+vim.keymap.set('n', '<A-0>', '<Cmd>BufferLast<CR>', { silent = true })
+vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>', { silent = true })

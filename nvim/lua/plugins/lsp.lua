@@ -243,5 +243,34 @@ return {
         end,
       },
     }
+
+    vim.diagnostic.config {
+      virtual_text = true,
+      float = {
+        focusable = true,
+        border = 'rounded',
+        source = 'always',
+        header = '',
+        prefix = '',
+      },
+    }
+
+    -- Override float to enforce wrapping and max_width
+    local orig_util_open_float = vim.diagnostic.open_float
+    vim.diagnostic.open_float = function(bufnr, opts)
+      opts = opts or {}
+      opts.max_width = 80
+      opts.wrap = true
+      opts.border = 'rounded'
+      return orig_util_open_float(bufnr, opts)
+    end
+    vim.keymap.set('n', '<leader>d', function()
+      vim.diagnostic.open_float(0, {
+        scope = 'line',
+        max_width = 80,
+        wrap = true,
+        border = 'rounded',
+      })
+    end, { desc = 'Show diagnostic (wrapped)' })
   end,
 }
