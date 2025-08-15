@@ -1,4 +1,3 @@
-
 return {
   'nvimtools/none-ls.nvim',
   dependencies = {
@@ -9,6 +8,37 @@ return {
     local null_ls = require 'null-ls'
     local formatting = null_ls.builtins.formatting
     local diagnostics = null_ls.builtins.diagnostics
+    local util = require 'lspconfig.util'
+
+    -- function to check if a folder has an eslint config file
+    local function has_eslint_config(dir)
+      local config_files = {
+        '.eslintrc.js',
+        '.eslintrc.cjs',
+        '.eslintrc.json',
+        '.eslintrc',
+      }
+      for _, file in ipairs(config_files) do
+        if util.path.exists(util.path.join(dir, file)) then
+          return true
+        end
+      end
+      return false
+    end
+
+    -- root finder for eslint (only looking for actual config files)
+    local eslint_root = util.root_pattern('.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json', '.eslintrc')
+
+    -- eslint_d config with cwd + skip when no config
+    local eslint_d = require('none-ls.diagnostics.eslint_d').with {
+      cwd = function(params)
+        return eslint_root(params.bufname)
+      end,
+      condition = function(utils)
+        local root = eslint_root(utils.bufname)
+        return root ~= nil and has_eslint_config(root)
+      end,
+    }
 
     -- Install formatters & linters via Mason
     require('mason-null-ls').setup {
@@ -26,7 +56,7 @@ return {
     local sources = {
       -- LINTERS
       diagnostics.checkmake,
-      require("none-ls.diagnostics.eslint_d"),
+      eslint_d,
 
       -- FORMATTERS
       formatting.prettier.with {
@@ -47,8 +77,6 @@ return {
       formatting.terraform_fmt,
       require('none-ls.formatting.ruff').with { extra_args = { '--extend-select', 'I' } },
       require 'none-ls.formatting.ruff_format',
-      -- Optional: ESLint as a formatter (if you want it)
-      -- require("none-ls.formatting.eslint_d"),
     }
 
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
