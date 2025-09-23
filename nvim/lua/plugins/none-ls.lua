@@ -49,6 +49,7 @@ return {
         'shfmt',
         'checkmake',
         'ruff',
+        'clang_format',
       },
       automatic_installation = true,
     }
@@ -57,7 +58,9 @@ return {
       -- LINTERS
       diagnostics.checkmake,
       eslint_d,
-
+      formatting.clang_format.with {
+        filetypes = { 'c', 'cpp' },
+      },
       -- FORMATTERS
       formatting.prettier.with {
         filetypes = {
@@ -84,6 +87,12 @@ return {
     null_ls.setup {
       sources = sources,
       on_attach = function(client, bufnr)
+        if client.name == 'null-ls' and (vim.bo[bufnr].filetype == 'c' or vim.bo[bufnr].filetype == 'cpp') then
+          client.server_capabilities.definitionProvider = false -- don't override clangd
+          client.server_capabilities.hoverProvider = false
+          client.server_capabilities.referencesProvider = false
+          client.server_capabilities.renameProvider = false
+        end
         if client.supports_method 'textDocument/formatting' then
           vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
           vim.api.nvim_create_autocmd('BufWritePre', {

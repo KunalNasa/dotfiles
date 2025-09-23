@@ -152,8 +152,12 @@ return {
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
-      -- clangd = {},
-      -- gopls = {},
+      clangd = {
+        cmd = { 'clangd', '--offset-encoding=utf-8' },
+        capabilities = {
+          offsetEncoding = { 'utf-8' },
+        },
+      }, -- gopls = {},
       -- pyright = {},
       -- rust_analyzer = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -162,7 +166,17 @@ return {
       --    https://github.com/pmizio/typescript-tools.nvim
       --
       -- But for many setups, the LSP (`tsserver`) will work just fine
-      ts_ls = {}, -- tsserver is deprecated
+      ts_ls = { -- tsserver
+        -- ts_ls config to ensure ts_ls sever does not format code
+        capabilities = {
+          documentFormattingProvider = false,
+          documentRangeFormattingProvider = false,
+        },
+        on_attach = function(client)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+      }, -- tsserver is deprecated
       ruff = {},
       pylsp = {
         settings = {
