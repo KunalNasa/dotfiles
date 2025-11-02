@@ -6,6 +6,18 @@ vim.g.maplocalleader = ' '
 vim.keymap.set('i', '<M-b>', '<C-o>b', opts)
 vim.keymap.set('i', '<M-f>', '<C-o>w', opts)
 
+-- normal mode
+vim.keymap.set('n', '<A-Up>', ':m .-2<CR>==', { silent = true })
+vim.keymap.set('n', '<A-Down>', ':m .+1<CR>==', { silent = true })
+
+-- visual mode
+vim.keymap.set('v', '<A-Up>', ":m '<-2<CR>gv=gv", { silent = true })
+vim.keymap.set('v', '<A-Down>', ":m '>+1<CR>gv=gv", { silent = true })
+
+-- insert mode
+vim.keymap.set('i', '<A-Up>', '<Esc>:m .-2<CR>==gi', { silent = true })
+vim.keymap.set('i', '<A-Down>', '<Esc>:m .+1<CR>==gi', { silent = true })
+
 -- Disable the spacebar key's default behavior in Normal and Visual modes
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 

@@ -18,6 +18,7 @@ require('lazy').setup {
   require 'plugins.neotree',
   require 'plugins.colortheme',
   -- require 'plugins.bufferline',
+  require 'plugins.visual-multi',
   require 'plugins.barbar',
   require 'plugins.lualine',
   require 'plugins.treesitter',
