@@ -27,4 +27,34 @@ return {
       vim.cmd 'colorscheme github_dark_dimmed'
     end,
   },
+  -- TRIED THIS BELOW THEME BUT DIDN'T LIKE IT MUCH
+  -- {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
+  --   lazy = false, -- load immediately
+  --   priority = 1000, -- make sure it loads first
+  --   config = function()
+  --     require('catppuccin').setup {
+  --       flavour = 'mocha', -- latte, frappe, macchiato, mocha
+  --       background = { -- configure background per mode
+  --         light = 'latte',
+  --         dark = 'mocha',
+  --       },
+  --       transparent_background = false,
+  --       show_end_of_buffer = false,
+  --       integrations = {
+  --         -- enable plugins integration if you want
+  --         lsp_trouble = true,
+  --         nvimtree = true,
+  --         telescope = true,
+  --         cmp = true,
+  --         gitsigns = true,
+  --         -- add more as needed
+  --       },
+  --     }
+  --
+  --     -- set the colorscheme
+  --     vim.cmd 'colorscheme catppuccin'
+  --   end,
+  -- },
 }

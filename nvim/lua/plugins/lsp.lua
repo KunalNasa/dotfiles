@@ -160,8 +160,33 @@ return {
           offsetEncoding = { 'utf-8' },
         },
       }, -- gopls = {},
+      gopls = {
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+            },
+            staticcheck = true,
+            gofumpt = true,
+          },
+        },
+      },
       -- pyright = {},
-      -- rust_analyzer = {},
+      rust_analyzer = {
+        settings = {
+          ['rust-analyzer'] = {
+            cargo = { allFeatures = true },
+
+            checkOnSave = {
+              command = 'clippy',
+            },
+
+            rustfmt = {
+              extraArgs = { '--edition=2021' },
+            },
+          },
+        },
+      },
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
       -- Some languages (like typescript) have entire language plugins that can be useful:

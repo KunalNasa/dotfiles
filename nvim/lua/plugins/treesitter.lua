@@ -2,6 +2,10 @@ return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
   main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+  dependencies = {
+    'windwp/nvim-ts-autotag',
+    config = true,
+  },
   -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
   opts = {
     ensure_installed = {
@@ -9,6 +13,8 @@ return { -- Highlight, edit, and navigate code
       'python',
       'javascript',
       'typescript',
+      'tsx',
+      'html',
       'vimdoc',
       'vim',
       'regex',
@@ -30,6 +36,7 @@ return { -- Highlight, edit, and navigate code
       'bash',
       'tsx',
       'css',
+      'jsdoc',
       'html',
     },
     -- Autoinstall languages that are not installed

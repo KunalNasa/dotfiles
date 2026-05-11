@@ -66,14 +66,18 @@ return { -- Autocompletion
 
       -- prevent continuous completion refreshes while typing fast
       completion = {
-        autocomplete = { require('cmp.types').cmp.TriggerEvent.InsertEnter },
+        autocomplete = {
+          require('cmp.types').cmp.TriggerEvent.InsertEnter,
+          require('cmp.types').cmp.TriggerEvent.TextChanged, -- triggers while typing
+        },
         completeopt = 'menu,menuone,noselect',
+        keyword_length = 2, -- only trigger after 2 chars (reduces noise)
       },
-
       performance = {
-        debounce = 80, -- delay before showing suggestions
-        throttle = 60, -- limit how often updates trigger
-        fetching_timeout = 200, -- timeout for LSP sources
+        debounce = 150, -- wait 150ms after you stop typing (was 80, increase this)
+        throttle = 60,
+        fetching_timeout = 500,
+        max_view_entries = 15, -- limit how many items render in the menu
       },
 
       mapping = cmp.mapping.preset.insert {
@@ -121,9 +125,9 @@ return { -- Autocompletion
           name = 'lazydev',
           group_index = 0,
         },
-        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp'} ,
         { name = 'luasnip' },
-        { name = 'buffer' },
+        { name = 'buffer',  max_item_count = 5, keyword_length = 2 },
         { name = 'path' },
       },
 

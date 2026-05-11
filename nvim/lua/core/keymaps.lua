@@ -2,6 +2,11 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Select whole file using space + `a`
+vim.keymap.set('n', '<leader>a', 'ggVG', {
+  desc = 'select entire file',
+})
+
 -- TOM SOLUTION TO SKIP WORDS USING OPTION + arrows
 vim.keymap.set('i', '<M-b>', '<C-o>b', opts)
 vim.keymap.set('i', '<M-f>', '<C-o>w', opts)
