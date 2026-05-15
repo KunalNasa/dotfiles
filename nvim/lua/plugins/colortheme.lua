@@ -45,7 +45,7 @@ vim.cmd.colorscheme 'github_dark_dimmed'
 --     -- enable plugins integration if you want
 --     lsp_trouble = true,
 --     nvimtree = true,
---     telescope = true,
+--     snacks = true,
 --     cmp = true,
 --     gitsigns = true,
 --     -- add more as needed

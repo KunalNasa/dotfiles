@@ -3,7 +3,6 @@
 vim.pack.add {
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/sindrets/diffview.nvim',
-  'https://github.com/nvim-telescope/telescope.nvim',
   'https://github.com/lewis6991/gitsigns.nvim',
   'https://github.com/akinsho/git-conflict.nvim',
   'https://github.com/NeogitOrg/neogit',
@@ -54,7 +53,7 @@ end
 
 git_conflict.setup {
   default_mappings = false, -- disable built-in keymaps if you want custom ones
-  default_commands = rue, -- enables :GitConflictChooseOurs etc.
+  default_commands = true, -- enables :GitConflictChooseOurs etc.
   disable_diagnostics = false,
 }
 
@@ -99,6 +98,7 @@ local neogit = require 'neogit'
 neogit.setup {
   integrations = {
     diffview = true, -- use diffview for diffs
+    snacks = true,
   },
 
   kind = 'tab', -- open in a new tab like VS Code's Source Control
