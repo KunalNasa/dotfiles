@@ -1,29 +1,29 @@
--- vim.pack.add {
---   'https://github.com/projekt0n/github-nvim-theme',
--- }
+vim.pack.add {
+  'https://github.com/projekt0n/github-nvim-theme',
+}
 
--- require('github-theme').setup {
---   options = {
---     -- updated style settings
---     styles = {
---       comments = 'NONE',
---       keywords = 'NONE',
---       functions = 'NONE',
---       variables = 'NONE',
---     },
+require('github-theme').setup {
+  options = {
+    -- updated style settings
+    styles = {
+      comments = 'NONE',
+      keywords = 'NONE',
+      functions = 'NONE',
+      variables = 'NONE',
+    },
 
---     -- updated darken options
---     darken = {
---       sidebars = {
---         enable = true,
---       },
---       floats = true,
---     },
---   },
--- }
+    -- updated darken options
+    darken = {
+      sidebars = {
+        enable = true,
+      },
+      floats = true,
+    },
+  },
+}
 
 -- -- now you pick the variant using colorscheme only
--- vim.cmd.colorscheme("github_dark_default")
+vim.cmd.colorscheme 'github_dark_dimmed'
 
 -- Tokyo Night theme
 -- vim.pack.add {
@@ -63,13 +63,13 @@
 --   style = 'night', -- storm, moon, night, day
 --   transparent = false,
 -- }
-
+--
 -- vim.cmd.colorscheme 'tokyonight'
 
-vim.pack.add {
-  'https://github.com/EdenEast/nightfox.nvim',
-}
-
-require('nightfox').setup()
-
-vim.cmd.colorscheme 'Nordfox'
+-- vim.pack.add {
+--   'https://github.com/EdenEast/nightfox.nvim',
+-- }
+--
+-- require('nightfox').setup()
+--
+-- vim.cmd.colorscheme 'Nordfox'

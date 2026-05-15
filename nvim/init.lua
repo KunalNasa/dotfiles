@@ -1,8 +1,10 @@
 require 'core.options' -- Load general options
-require 'plugins.colortheme'
 require 'core.keymaps' -- Load general keymaps
 require 'core.snippets' -- Custom code snippets
 require 'core.autocmds'
+
+require 'plugins.colortheme'
+require 'plugins.todo-comments'
 
 require 'plugins.lsp'
 require 'plugins.neotree'

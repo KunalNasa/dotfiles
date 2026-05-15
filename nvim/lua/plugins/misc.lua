@@ -19,10 +19,6 @@ vim.pack.add {
   -- Autoclose parentheses, brackets, quotes, etc.
   'https://github.com/windwp/nvim-autopairs',
 
-  -- Highlight todo, notes, etc in comments
-  'https://github.com/nvim-lua/plenary.nvim',
-  'https://github.com/folke/todo-comments.nvim',
-
   -- High-performance color highlighter
   'https://github.com/norcalli/nvim-colorizer.lua',
 
@@ -31,10 +27,6 @@ vim.pack.add {
 }
 
 require('nvim-autopairs').setup {}
-
-require('todo-comments').setup {
-  signs = false,
-}
 
 require('colorizer').setup()
 

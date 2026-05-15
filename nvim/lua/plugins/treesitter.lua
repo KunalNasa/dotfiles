@@ -1,63 +1,72 @@
--- Highlight, edit, and navigate code
+vim.pack.add {
+  {
+    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    build = ':TSUpdate',
+  },
+}
 
-vim.pack.add({
-  "https://github.com/nvim-treesitter/nvim-treesitter",
-  "https://github.com/windwp/nvim-ts-autotag",
-})
+local setup_treesitter = function()
+  local treesitter = require 'nvim-treesitter'
+  treesitter.setup {}
+  local ensure_installed = {
+    'vim',
+    'rust',
+    'c',
+    'vue',
+    'svelte',
+    'lua',
+    'python',
+    'javascript',
+    'typescript',
+    'vimdoc',
+    'regex',
+    'terraform',
+    'sql',
+    'dockerfile',
+    'toml',
+    'json',
+    'java',
+    'go',
+    'gitignore',
+    'graphql',
+    'cpp',
+    'yaml',
+    'make',
+    'cmake',
+    'markdown',
+    'jsdoc',
+    'markdown_inline',
+    'bash',
+    'tsx',
+    'css',
+    'html',
+  }
 
-vim.api.nvim_create_autocmd("PackChanged", {
-  once = true,
-  callback = function()
-    require("nvim-ts-autotag").setup()
+  local config = require 'nvim-treesitter.config'
 
-    require("nvim-treesitter.configs").setup({
-      ensure_installed = {
-        "lua",
-        "python",
-        "javascript",
-        "typescript",
-        "tsx",
-        "html",
-        "vimdoc",
-        "vim",
-        "regex",
-        "terraform",
-        "sql",
-        "dockerfile",
-        "toml",
-        "json",
-        "java",
-        "groovy",
-        "go",
-        "gitignore",
-        "graphql",
-        "yaml",
-        "make",
-        "cmake",
-        "markdown",
-        "markdown_inline",
-        "bash",
-        "css",
-        "jsdoc",
-      },
+  local already_installed = config.get_installed()
+  local parsers_to_install = {}
 
-      auto_install = true,
+  for _, parser in ipairs(ensure_installed) do
+    if not vim.tbl_contains(already_installed, parser) then
+      table.insert(parsers_to_install, parser)
+    end
+  end
 
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = {
-          "ruby",
-        },
-      },
+  if #parsers_to_install > 0 then
+    treesitter.install(parsers_to_install)
+  end
 
-      indent = {
-        enable = true,
-        disable = {
-          "ruby",
-        },
-      },
-    })
+  local group = vim.api.nvim_create_augroup('TreeSitterConfig', { clear = true })
+  vim.api.nvim_create_autocmd('FileType', {
+    group = group,
+    callback = function(args)
+      if vim.list_contains(treesitter.get_installed(), vim.treesitter.language.get_lang(args.match)) then
+        vim.treesitter.start(args.buf)
+      end
+    end,
+  })
+end
 
-    vim.cmd("TSUpdate")
-  end,
-})
+setup_treesitter()
