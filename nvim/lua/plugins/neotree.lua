@@ -1,6 +1,6 @@
 vim.pack.add {
   'https://github.com/nvim-lua/plenary.nvim',
-  'https://github.com/nvim-tree/nvim-web-devicons',
+  -- 'https://github.com/nvim-tree/nvim-web-devicons',
   'https://github.com/MunifTanjim/nui.nvim',
   'https://github.com/3rd/image.nvim',
   'https://github.com/s1n7ax/nvim-window-picker',
@@ -8,6 +8,7 @@ vim.pack.add {
 }
 
 require('window-picker').setup {
+  use_mini_icons = true,
   filter_rules = {
     include_current_win = false,
     autoselect_one = true,
@@ -63,7 +64,7 @@ require('neo-tree').setup {
     'terminal',
     'trouble',
     'qf',
-  },         -- when opening files, do not use windows containing these filetypes or buftypes
+  }, -- when opening files, do not use windows containing these filetypes or buftypes
 
   sort_case_insensitive = false, -- used when sorting files and directories in the tree
   sort_function = nil,
@@ -100,12 +101,9 @@ require('neo-tree').setup {
     },
 
     icon = {
-      folder_closed = '',
-      folder_open = '',
-      folder_empty = '󰜌',
-
-      -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
-      -- then these will never be used.
+      folder_closed = '󰉋',
+      folder_open = '󰝰',
+      folder_empty = '󰉖',
       default = '*',
       highlight = 'NeoTreeFileIcon',
     },
@@ -432,6 +430,22 @@ require('neo-tree').setup {
     },
   },
 }
+
+-- Patch neo-tree's icon component to use mini.icons for folders
+local components = require 'neo-tree.sources.common.components'
+local original_icon = components.icon
+
+components.icon = function(config, node, state)
+  if node.type == 'directory' then
+    local icon, hl = MiniIcons.get('directory', node.name)
+    return {
+      text = icon .. ' ',
+      highlight = hl,
+    }
+  end
+  -- fall back to original for files
+  return original_icon(config, node, state)
+end
 
 vim.cmd [[nnoremap \ :Neotree reveal<cr>]]
 

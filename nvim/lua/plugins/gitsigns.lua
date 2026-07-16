@@ -98,7 +98,6 @@ local neogit = require 'neogit'
 neogit.setup {
   integrations = {
     diffview = true, -- use diffview for diffs
-    snacks = true,
   },
 
   kind = 'tab', -- open in a new tab like VS Code's Source Control

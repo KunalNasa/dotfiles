@@ -6,14 +6,23 @@ require 'core.autocmds'
 require 'plugins.colortheme'
 require 'plugins.todo-comments'
 
-require 'plugins.lsp'
+-- NOTE: we need telescope before lsp
+require 'plugins.telescope'
+-- lsp
+require 'lsp.lsp'
+require 'lsp.linting'
+require 'lsp.formatting'
+
+-- require 'plugins.lsp'
+
+require 'plugins.mini'
 require 'plugins.neotree'
 require 'plugins.toggleTerm'
 require 'plugins.visual-multi'
 require 'plugins.barbar'
 require 'plugins.lualine'
 require 'plugins.treesitter'
-require 'plugins.snacks'
+-- require 'plugins.snacks'
 require 'plugins.autocompletion'
 require 'plugins.none-ls'
 require 'plugins.gitsigns'

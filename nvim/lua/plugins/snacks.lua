@@ -1,164 +1,170 @@
-vim.pack.add {
-  {
-    src = 'https://github.com/folke/snacks.nvim',
-  },
-}
-
--- Useful for getting pretty icons, but requires a Nerd Font.
-if vim.g.have_nerd_font then
-  vim.pack.add {
-    {
-      src = 'https://github.com/nvim-tree/nvim-web-devicons',
-    },
-  }
-end
-
-require('snacks').setup {
-  picker = {
-    enabled = true,
-
-    hidden = true,
-
-    ignored = {
-      'node_modules',
-      '.git',
-      '.venv',
-      'dist',
-      'build',
-      'coverage',
-      'package-lock.json',
-    },
-
-    layout = {
-      preset = 'telescope',
-
-      layout = {
-        width = 0.95,
-        height = 0.95,
-
-        box = 'horizontal',
-
-        {
-          box = 'vertical',
-          border = 'rounded',
-
-          title = '{title} {live} {flags}',
-          { win = 'input', height = 1, border = 'bottom' },
-          { win = 'list', border = 'none' },
-        },
-
-        {
-          win = 'preview',
-          border = 'rounded',
-          width = 0.60,
-        },
-      },
-    },
-
-    win = {
-      input = {
-        keys = {
-          ['<C-k>'] = { 'list_up', mode = { 'i', 'n' } },
-          ['<C-j>'] = { 'list_down', mode = { 'i', 'n' } },
-          ['<C-l>'] = { 'confirm', mode = { 'i', 'n' } },
-        },
-      },
-    },
-
-    sources = {
-      files = {
-        hidden = true,
-      },
-
-      grep = {
-        hidden = true,
-        exclude = {
-          'node_modules',
-          '.git',
-          '.venv',
-          'dist',
-          'build',
-          'coverage',
-        },
-      },
-    },
-  },
-}
-
-vim.keymap.set('n', '<leader>sh', function()
-  Snacks.picker.help()
-end, {
-  desc = '[S]earch [H]elp',
-})
-
-vim.keymap.set('n', '<leader>sk', function()
-  Snacks.picker.keymaps()
-end, {
-  desc = '[S]earch [K]eymaps',
-})
-
-vim.keymap.set('n', '<leader>sf', function()
-  Snacks.picker.files()
-end, {
-  desc = '[S]earch [F]iles',
-})
-
-vim.keymap.set('n', '<leader>ss', function()
-  Snacks.picker.pickers()
-end, {
-  desc = '[S]earch [S]elect Picker',
-})
-
-vim.keymap.set('n', '<leader>sw', function()
-  Snacks.picker.grep_word()
-end, {
-  desc = '[S]earch current [W]ord',
-})
-
-vim.keymap.set('n', '<leader>sg', function()
-  Snacks.picker.grep()
-end, {
-  desc = '[S]earch by [G]rep',
-})
-
-vim.keymap.set('n', '<leader>sd', function()
-  Snacks.picker.diagnostics()
-end, {
-  desc = '[S]earch [D]iagnostics',
-})
-
-vim.keymap.set('n', '<leader>sr', function()
-  Snacks.picker.resume()
-end, {
-  desc = '[S]earch [R]esume',
-})
-
-vim.keymap.set('n', '<leader>s.', function()
-  Snacks.picker.recent()
-end, {
-  desc = '[S]earch Recent Files ("." for repeat)',
-})
-
-vim.keymap.set('n', '<leader><leader>', function()
-  Snacks.picker.buffers()
-end, {
-  desc = '[ ] Find existing buffers',
-})
-
-vim.keymap.set('n', '<leader>/', function()
-  Snacks.picker.lines {
-    layout = {
-      preset = 'ivy',
-    },
-  }
-end, {
-  desc = '[/] Fuzzily search in current buffer',
-})
-
-vim.keymap.set('n', '<leader>s/', function()
-  Snacks.picker.grep {
-    buffers = true,
-  }
-end, {
-  desc = '[S]earch [/] in Open Files',
-})
+-- vim.pack.add {
+--   {
+--     src = 'https://github.com/folke/snacks.nvim',
+--   },
+-- }
+--
+-- -- Useful for getting pretty icons, but requires a Nerd Font.
+-- if vim.g.have_nerd_font then
+--   vim.pack.add {
+--     {
+--       src = 'https://github.com/nvim-tree/nvim-web-devicons',
+--     },
+--   }
+-- end
+--
+-- require('snacks').setup {
+--   picker = {
+--     enabled = true,
+--
+--     hidden = true,
+--
+--     ignored = {
+--       'node_modules',
+--       'pnpm-lock.yaml',
+--       '.git',
+--       '.venv',
+--       '.next',
+--       '.turbo',
+--       'dist',
+--       'build',
+--       'coverage',
+--       'package-lock.json',
+--     },
+--
+--     layout = {
+--       preset = 'telescope',
+--
+--       layout = {
+--         width = 0.95,
+--         height = 0.95,
+--
+--         box = 'horizontal',
+--
+--         {
+--           box = 'vertical',
+--           border = 'rounded',
+--
+--           title = '{title} {live} {flags}',
+--           { win = 'input', height = 1, border = 'bottom' },
+--           { win = 'list', border = 'none' },
+--         },
+--
+--         {
+--           win = 'preview',
+--           border = 'rounded',
+--           width = 0.60,
+--         },
+--       },
+--     },
+--
+--     win = {
+--       input = {
+--         keys = {
+--           ['<C-k>'] = { 'list_up', mode = { 'i', 'n' } },
+--           ['<C-j>'] = { 'list_down', mode = { 'i', 'n' } },
+--           ['<C-l>'] = { 'confirm', mode = { 'i', 'n' } },
+--         },
+--       },
+--     },
+--
+--     sources = {
+--       files = {
+--         hidden = true,
+--       },
+--
+--       grep = {
+--         hidden = true,
+--         exclude = {
+--           'node_modules',
+--           'pnpm-lock.yaml',
+--           '.git',
+--           '.next',
+--           '.turbo',
+--           '.venv',
+--           'dist',
+--           'build',
+--           'coverage',
+--         },
+--       },
+--     },
+--   },
+-- }
+--
+-- vim.keymap.set('n', '<leader>sh', function()
+--   Snacks.picker.help()
+-- end, {
+--   desc = '[S]earch [H]elp',
+-- })
+--
+-- vim.keymap.set('n', '<leader>sk', function()
+--   Snacks.picker.keymaps()
+-- end, {
+--   desc = '[S]earch [K]eymaps',
+-- })
+--
+-- vim.keymap.set('n', '<leader>sf', function()
+--   Snacks.picker.files()
+-- end, {
+--   desc = '[S]earch [F]iles',
+-- })
+--
+-- vim.keymap.set('n', '<leader>ss', function()
+--   Snacks.picker.pickers()
+-- end, {
+--   desc = '[S]earch [S]elect Picker',
+-- })
+--
+-- vim.keymap.set('n', '<leader>sw', function()
+--   Snacks.picker.grep_word()
+-- end, {
+--   desc = '[S]earch current [W]ord',
+-- })
+--
+-- vim.keymap.set('n', '<leader>sg', function()
+--   Snacks.picker.grep()
+-- end, {
+--   desc = '[S]earch by [G]rep',
+-- })
+--
+-- vim.keymap.set('n', '<leader>sd', function()
+--   Snacks.picker.diagnostics()
+-- end, {
+--   desc = '[S]earch [D]iagnostics',
+-- })
+--
+-- vim.keymap.set('n', '<leader>sr', function()
+--   Snacks.picker.resume()
+-- end, {
+--   desc = '[S]earch [R]esume',
+-- })
+--
+-- vim.keymap.set('n', '<leader>s.', function()
+--   Snacks.picker.recent()
+-- end, {
+--   desc = '[S]earch Recent Files ("." for repeat)',
+-- })
+--
+-- vim.keymap.set('n', '<leader><leader>', function()
+--   Snacks.picker.buffers()
+-- end, {
+--   desc = '[ ] Find existing buffers',
+-- })
+--
+-- vim.keymap.set('n', '<leader>/', function()
+--   Snacks.picker.lines {
+--     layout = {
+--       preset = 'ivy',
+--     },
+--   }
+-- end, {
+--   desc = '[/] Fuzzily search in current buffer',
+-- })
+--
+-- vim.keymap.set('n', '<leader>s/', function()
+--   Snacks.picker.grep {
+--     buffers = true,
+--   }
+-- end, {
+--   desc = '[S]earch [/] in Open Files',
+-- })
